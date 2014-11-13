@@ -17,10 +17,21 @@
             </h2>
         </div>
         <div data-role="content" data-theme="none">
-            <ul data-role="listview" data-autodividers="true" data-inset="true" id="listviewContactList"></ul>
+            <ul data-role="listview" data-autodividers="true" data-inset="true" id="listviewContactList">
+                
+            </ul>
         </div>
     </div>
     <script type="text/javascript">
+
+        window.onload = function () {
+            $("#listviewContactList").append('<li><a href="index.html"><h2>ASDF</h2><p>13484918458</p></a></li>');
+            $("#listviewContactList").append('<li><a href="index.html"><h2>QWER</h2><p>13484918458</p></a></li>');
+            $("#listviewContactList").append('<li><a href="index.html"><h2>ZDED</h2><p>13484918458</p></a></li>');
+            $("#listviewContactList").append('<li><a href="index.html"><h2>AFED</h2><p>13484918458</p></a></li>');
+
+            $("#listviewContactList").listview("refresh");
+        }
         document.addEventListener("deviceready", onDeviceReady, false);
 
         // device APIs are available
@@ -34,16 +45,22 @@
         }
 
         function onSuccess(contacts) {
-            alert(contacts.length)
             // display the address information for all contacts
             for (var i = 0; i < contacts.length; i++) {
-                $("#listviewContactList").append('<li><a href="index.html"><h2>' + contacts[i].displayName + '</h2>');
-                alert(contacts[i].displayName)
-                for (var j = 0; j < contacts[i].phoneNumbers.length; j++) {
-                    $("#listviewContactList").append("<p>" + contacts[i].phoneNumbers[j].value + "</p>");
-                }
+                try{
+                    $("#listviewContactList").append('<li><a href="index.html"><h2>' + contacts[i].displayName + '</h2>');
+                    for (var j = 0; j < contacts[i].phoneNumbers.length; j++) {
+                        if (contacts[i].phoneNumbers[j] && contacts[i].phoneNumbers[j].value &&  contacts[i].phoneNumbers[j].value != "")
+                        $("#listviewContactList").append("<p>" + contacts[i].phoneNumbers[j].value + "</p>");
+                    }
 
-                $("#listviewContactList").append("</a></li>");
+                    $("#listviewContactList").append("</a></li>");
+                }
+                catch(e)
+                {
+
+                }
+                
             }
 
             $("#listviewContactList").listview("refresh");
