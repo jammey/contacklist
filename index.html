@@ -28,7 +28,7 @@
         //
         function onDeviceReady() {
             var options = new ContactFindOptions();
-            options.filter = "*";
+            options.filter = "";
             var filter = ["displayName", "phoneNumbers"];
             navigator.contacts.find(filter, onSuccess, onError, options);
         }
