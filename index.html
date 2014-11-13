@@ -9,7 +9,7 @@
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 </head>
 <body>
-    <div data-role="page" data-theme="d" id="pageIndex">
+    <div data-role="page" data-theme="a" id="pageIndex">
         <div data-role="header">
             <a href="#" data-icon="back" data-transition="slide" data-rel="back" data-iconpos="notext"></a>
             <h2>
@@ -17,6 +17,30 @@
             </h2>
         </div>
         <div data-role="content" data-theme="none">
+            <a href="" data-role="button" id="test1">测试一下</a>
+            <select name="select-native-1" id="select-native-1">
+                <option value="1">The 1st Option</option>
+                <option value="2">The 2nd Option</option>
+                <option value="3">The 3rd Option</option>
+                <option value="4">The 4th Option</option>
+            </select>
+
+            <a href="" data-role="button" id="test2">测试两下</a>
+            <select name="select-native-2" id="select-native-2" style="display:none">
+                <option value="1">The2 1st Option</option>
+                <option value="2">The2 2nd Option</option>
+                <option value="3">The2 3rd Option</option>
+                <option value="4">The2 4th Option</option>
+            </select>
+
+            <a href="" data-role="button" id="test3">测试三下</a>
+            <select name="select-native-3" id="select-native-3" style="width:0px; height:0px;">
+                <option value="1">The3 1st Option</option>
+                <option value="2">The3 2nd Option</option>
+                <option value="3">The3 3rd Option</option>
+                <option value="4">The3 4th Option</option>
+            </select>
+
             <ul data-role="listview" data-autodividers="true" data-inset="true" id="listviewContactList">
                 
             </ul>
@@ -24,51 +48,57 @@
     </div>
     <script type="text/javascript">
 
-        window.onload = function () {
-            $("#listviewContactList").append('<li><a href="index.html"><h2>ASDF</h2><p>13484918458</p></a></li>');
-            $("#listviewContactList").append('<li><a href="index.html"><h2>QWER</h2><p>13484918458</p></a></li>');
-            $("#listviewContactList").append('<li><a href="index.html"><h2>ZDED</h2><p>13484918458</p></a></li>');
-            $("#listviewContactList").append('<li><a href="index.html"><h2>AFED</h2><p>13484918458</p></a></li>');
+        $(document).on("pageshow", "#pageIndex", function (event, ui) {
+            $("#test1").off("click").on("click", function () {
+                $("#select-native-1").click();
+            });
 
-            $("#listviewContactList").listview("refresh");
-        }
-        document.addEventListener("deviceready", onDeviceReady, false);
+            $("#test2").off("click").on("click", function () {
+                $("#select-native-2").click();
+            });
 
-        // device APIs are available
-        //
-        function onDeviceReady() {
-            var options = new ContactFindOptions();
-            options.filter = "";
-            options.multiple = true;
-            var filter = ["displayName", "phoneNumbers"];
-            navigator.contacts.find(filter, onSuccess, onError, options);
-        }
+            $("#test3").off("click").on("click", function () {
+                $("#select-native-3").click();
+            });
+        });
 
-        function onSuccess(contacts) {
-            // display the address information for all contacts
-            for (var i = 0; i < contacts.length; i++) {
-                try{
-                    $("#listviewContactList").append('<li><a href="index.html"><h2>' + contacts[i].displayName + '</h2>');
-                    for (var j = 0; j < contacts[i].phoneNumbers.length; j++) {
-                        if (contacts[i].phoneNumbers[j] && contacts[i].phoneNumbers[j].value &&  contacts[i].phoneNumbers[j].value != "")
-                        $("#listviewContactList").append("<p>" + contacts[i].phoneNumbers[j].value + "</p>");
-                    }
+        //document.addEventListener("deviceready", onDeviceReady, false);
 
-                    $("#listviewContactList").append("</a></li>");
-                }
-                catch(e)
-                {
+        //// device APIs are available
+        ////
+        //function onDeviceReady() {
+        //    var options = new ContactFindOptions();
+        //    options.filter = "";
+        //    options.multiple = true;
+        //    var filter = ["displayName", "phoneNumbers"];
+        //    navigator.contacts.find(filter, onSuccess, onError, options);
+        //}
 
-                }
+        //function onSuccess(contacts) {
+        //    // display the address information for all contacts
+        //    for (var i = 0; i < contacts.length; i++) {
+        //        try{
+        //            $("#listviewContactList").append('<li><a href="index.html"><h2>' + contacts[i].displayName + '</h2>');
+        //            for (var j = 0; j < contacts[i].phoneNumbers.length; j++) {
+        //                if (contacts[i].phoneNumbers[j] && contacts[i].phoneNumbers[j].value &&  contacts[i].phoneNumbers[j].value != "")
+        //                $("#listviewContactList").append("<p>" + contacts[i].phoneNumbers[j].value + "</p>");
+        //            }
+
+        //            $("#listviewContactList").append("</a></li>");
+        //        }
+        //        catch(e)
+        //        {
+
+        //        }
                 
-            }
+        //    }
 
-            $("#listviewContactList").listview("refresh");
-        }
+        //    $("#listviewContactList").listview("refresh");
+        //}
 
-        function onError(contactError) {
-            alert('onError!');
-        }
+        //function onError(contactError) {
+        //    alert('onError!');
+        //}
     </script>
 </body>
 </html>
