@@ -22,31 +22,35 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(document).on("pageshow", "#pageIndex", function (event, ui) {
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+        // device APIs are available
+        //
+        function onDeviceReady() {
             var options = new ContactFindOptions();
             options.filter = "*";
             var filter = ["displayName", "phoneNumbers"];
             navigator.contacts.find(filter, onSuccess, onError, options);
+        }
 
-            function onSuccess(contacts) {
-                // display the address information for all contacts
-                for (var i = 0; i < contacts.length; i++) {
-                    $("#listviewContactList").append('<li><a href="index.html"><h2>' + contacts[i].displayName + '</h2>');
-                    alert(contacts[i].displayName)
-                    for (var j = 0; j < contacts[i].phoneNumbers.length; j++) {
-                        $("#listviewContactList").append("<p>" + contacts[i].phoneNumbers[j].value + "</p>");
-                    }
-
-                    $("#listviewContactList").append("</a></li>");
+        function onSuccess(contacts) {
+            // display the address information for all contacts
+            for (var i = 0; i < contacts.length; i++) {
+                $("#listviewContactList").append('<li><a href="index.html"><h2>' + contacts[i].displayName + '</h2>');
+                alert(contacts[i].displayName)
+                for (var j = 0; j < contacts[i].phoneNumbers.length; j++) {
+                    $("#listviewContactList").append("<p>" + contacts[i].phoneNumbers[j].value + "</p>");
                 }
 
-                $("#listviewContactList").listview("refresh");
+                $("#listviewContactList").append("</a></li>");
             }
 
-            function onError(contactError) {
-                alert('onError!');
-            }
-        });
+            $("#listviewContactList").listview("refresh");
+        }
+
+        function onError(contactError) {
+            alert('onError!');
+        }
     </script>
 </body>
 </html>
