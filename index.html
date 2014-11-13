@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/jquery.mobile-1.4.4.js"></script>
+    <link href="css/jquery.mobile-1.4.4.css" rel="stylesheet" />
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+</head>
+<body>
+    <div data-role="page" data-theme="d" id="pageIndex">
+        <div data-role="header">
+            <a href="#" data-icon="back" data-transition="slide" data-rel="back" data-iconpos="notext"></a>
+            <h2>
+                手机联系人
+            </h2>
+        </div>
+        <div data-role="content" data-theme="none">
+            <ul data-role="listview" data-autodividers="true" data-inset="true" id="listviewContactList"></ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).on("pageshow", "#pageIndex", function (event, ui) {
+            var options = new ContactFindOptions();
+            options.filter = "*";
+            var filter = ["displayName", "phoneNumbers"];
+            navigator.contacts.find(filter, onSuccess, onError, options);
+
+            function onSuccess(contacts) {
+                // display the address information for all contacts
+                for (var i = 0; i < contacts.length; i++) {
+                    $("#listviewContactList").append('<li><a href="index.html"><h2>' + contacts[i].displayName + '</h2>');
+                    alert(contacts[i].displayName)
+                    for (var j = 0; j < contacts[i].phoneNumbers.length; j++) {
+                        $("#listviewContactList").append("<p>" + contacts[i].phoneNumbers[j].value + "</p>");
+                    }
+
+                    $("#listviewContactList").append("</a></li>");
+                }
+
+                $("#listviewContactList").listview("refresh");
+            }
+
+            function onError(contactError) {
+                alert('onError!');
+            }
+        });
+    </script>
+</body>
+</html>
